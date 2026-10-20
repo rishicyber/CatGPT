@@ -1,0 +1,100 @@
+================================================================================
+                    PROJECT REQUIREMENTS DOCUMENT (PRD)
+                             Project: CatGPT
+================================================================================
+
+1. PROJECT OVERVIEW
+--------------------------------------------------------------------------------
+CatGPT is a fun, ChatGPT-inspired web application where the AI responses are
+simulated cat meows, purrs, and cat emojis. It features a modern, turn-based
+chat interface equipped with mock LLM functionalities such as model switching
+(selecting different cat breeds/types), chat history management, thinking/typing
+states, token counters, and mock input actions.
+
+2. VISUAL THEME & DESIGN SYSTEM
+--------------------------------------------------------------------------------
+  - Theme Style: Cute, soft, warm, and cozy aesthetic.
+  - Color Palette:
+    * Primary Background: Warm Soft Beige / Cream (`#FDFBF7` or `#F5EFE6`)
+    * Surface / Cards / Sidebar: Cozy Sand / Light Oat (`#E8DFD8` or `#EFEAE2`)
+    * Accent / Active State: Soft Warm Terracotta / Milk Tea (`#D9B48F` or `#C69B7B`)
+    * Text & Primary Elements: Deep Warm Brown / Dark Cocoa (`#4A3E3D` or `#3D312E`)
+    * Borders & Dividers: Muted Warm Tan (`#E0D5C1`)
+  - Typography & Shape Language:
+    * Rounded corners (`border-radius: 12px` to `20px` / `rounded-2xl`).
+    * Soft shadows, playful icons, and friendly typography.
+
+3. UI & LAYOUT ARCHITECTURE
+--------------------------------------------------------------------------------
+The layout is fully responsive (mobile-friendly) and divided into two primary
+sections across desktop, tablet, and mobile views:
+  A. Collapsible Sidebar (Left Side)
+  B. Main Chat Area (Right Side)
+
+  RESPONSIVENESS & BREAKPOINTS:
+  - Mobile Screens (< 768px):
+    * Sidebar functions as an overlay drawer or slide-out menu (collapsed by default).
+    * Main chat area takes full screen width.
+    * Touch-friendly buttons and compact input bar layout.
+  - Desktop/Tablet Screens (>= 768px):
+    * Sidebar can be permanently expanded or collapsed inline.
+    * Flexible side-by-side layout adjusting dynamically to screen width.
+
+  A. SIDEBAR REQUIREMENTS:
+     - Toggle Control: Expandable and collapsible toggle button.
+     - Section 1: Navigation & Search
+       * "New Chat" Button: Initiates a fresh chat session and saves the active
+         session to history. Automatically active on initial site load.
+       * "Search Chats" Input: Filter past conversations by title.
+     - Section 2: Chat History
+       * Displays past chat sessions.
+       * Naming Convention: Default naming format `cat-chat1`, `cat-chat2`, etc.
+       * Edit Functionality: Pencil icon next to each chat title to rename it.
+       * Session Selection: Clicking a past chat loads and resumes that specific
+         conversation thread in the main area.
+
+  B. MAIN CHAT AREA REQUIREMENTS:
+     - Header/Display Area:
+       * Turn-based, scrollable chat message feed.
+       * Messages auto-scroll upwards as new messages are added.
+       * Each CatGPT response includes:
+         - Profile avatar corresponding to the Cat Model selected when sent.
+         - Thumbs Up / Thumbs Down feedback icons at the bottom of the response block
+           (dummy interaction; triggers visual toggle only).
+     - Suggested Queries Bar (Positioned directly above the input area):
+       * Displays 2 suggested queries containing meows, exclamation marks, and cat emojis.
+       * Interaction: Clicking a suggestion populates/replaces the input text box.
+       * Behavior: Does NOT auto-send; allows the user to append or edit text before sending.
+     - Typing Input Area:
+       * '+' Icon: Mock file upload trigger (discards file on selection).
+       * Mic Icon: Mock dictation / voice-to-text trigger (no audio processing required).
+       * Cat Model Selector Dropdown: Replaces traditional LLM model pickers.
+         - Options: Brown Cat, Striped Cat, Calico, Tuxedo, Siamese, etc.
+         - Logic: Selecting a model changes the avatar profile picture attached to
+           subsequently sent messages. Past messages retain the avatar of the model
+           they were sent with.
+       * Token Counter Display:
+         - Displays cumulative "Tokens Used" (e.g., "Tokens Used: 1,420 / 1,000,000").
+         - Increments with every sent query by a small random number (e.g., +15 to +120 tokens).
+         - Max limit capped at 1,000,000 (1M) tokens.
+       * Text Input Box: Expandable text area for typing user prompts.
+       * Paperplane / Send Button: Submits the message to the chat feed.
+
+4. INTERACTION & SIMULATION LOGIC
+--------------------------------------------------------------------------------
+  - Response Generation:
+    * Upon sending a message, trigger a brief "Thinking..." / "Typing..." state indicator.
+    * Select a random response from a pre-defined array/file of meow variants.
+    * Append the generated response along with the active Cat Model's profile pic.
+  - Feedback Interaction:
+    * Clicking Thumbs Up or Thumbs Down highlights the selected icon (no backend submission).
+  - State Management (Frontend/Mock):
+    * Initial state on first page load defaults to a new, empty chat.
+    * Active chat vs. archived chat history state retention.
+    * Cumulative token count tracker persisted across the current session.
+
+5. FUTURE DATA / FILE STRUCTURE (REFERENCE)
+--------------------------------------------------------------------------------
+  - `meow_responses.js` / `.json`: Dedicated dataset holding an array of random
+    cat response strings (meows, purrs, hiss, emojis, exclamations).
+================================================================================

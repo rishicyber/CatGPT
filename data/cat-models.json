@@ -1,0 +1,44 @@
+[
+  {
+    "id": "brown",
+    "name": "Brown Cat",
+    "emoji": "🐈",
+    "color": "#edd4ba",
+    "profileImage": null
+  },
+  {
+    "id": "tabby",
+    "name": "Striped Cat",
+    "emoji": "🐯",
+    "color": "#e8c9a8",
+    "profileImage": null
+  },
+  {
+    "id": "calico",
+    "name": "Calico",
+    "emoji": "😺",
+    "color": "#f0d5b9",
+    "profileImage": null
+  },
+  {
+    "id": "tuxedo",
+    "name": "Tuxedo",
+    "emoji": "🐈‍⬛",
+    "color": "#d4d1cb",
+    "profileImage": null
+  },
+  {
+    "id": "siamese",
+    "name": "Siamese",
+    "emoji": "😽",
+    "color": "#e8d8bd",
+    "profileImage": null
+  },
+  {
+    "id": "ginger",
+    "name": "Ginger Cat",
+    "emoji": "🐱",
+    "color": "#f1d1a7",
+    "profileImage": null
+  }
+]

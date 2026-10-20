@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f7f3ec" />
+    <meta
+      name="description"
+      content="A cozy little chat room for your questions and cat-powered answers."
+    />
+    <title>CatGPT — a little more meow</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <script type="module" src="js/app.js"></script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" id="sidebar" aria-label="Chat navigation">
+        <div class="sidebar-top">
+          <a class="brand" href="#" aria-label="CatGPT home">
+            <span class="brand-mark" aria-hidden="true">🐈</span>
+            <span class="brand-name">cat<span>gpt</span></span>
+          </a>
+          <button
+            class="icon-button sidebar-collapse"
+            id="sidebar-collapse"
+            type="button"
+            aria-label="Collapse sidebar"
+            title="Collapse sidebar"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 18l-6-6 6-6" /></svg>
+          </button>
+        </div>
+
+        <button class="new-chat-button" id="new-chat" type="button">
+          <span aria-hidden="true">＋</span>
+          <span>New chat</span>
+          <kbd>⌘ K</kbd>
+        </button>
+
+        <label class="search-box">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5" /><path d="m16 16 4 4" /></svg>
+          <input id="chat-search" type="search" placeholder="Search your chats" autocomplete="off" />
+        </label>
+
+        <div class="history-heading">
+          <span>Your chats</span>
+          <span class="history-count" id="history-count">0</span>
+        </div>
+        <nav class="history-list" id="history-list" aria-label="Chat history"></nav>
+
+        <div class="sidebar-bottom">
+          <div class="sidebar-note">
+            <span class="note-icon" aria-hidden="true">☁️</span>
+            <span><strong>A cozy corner</strong><br />Your chats stay on this device.</span>
+          </div>
+          <div class="profile-chip">
+            <span class="profile-avatar" aria-hidden="true">😺</span>
+            <span class="profile-copy"><strong>CatGPT</strong><small>Professional napper</small></span>
+            <span class="online-dot" title="Ready to chat"></span>
+          </div>
+        </div>
+      </aside>
+
+      <div class="mobile-backdrop" id="mobile-backdrop" hidden></div>
+
+      <main class="main-panel">
+        <header class="topbar">
+          <div class="topbar-left">
+            <button class="icon-button mobile-menu" id="mobile-menu" type="button" aria-label="Open chat menu">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" /></svg>
+            </button>
+            <button class="icon-button desktop-menu" id="sidebar-expand" type="button" aria-label="Expand sidebar" title="Show chats" hidden>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v14H4zM9 5v14" /></svg>
+            </button>
+            <span class="topbar-title">Your little corner of the internet</span>
+          </div>
+          <div class="topbar-status"><span></span> All paws on deck</div>
+        </header>
+
+        <section class="conversation" id="conversation" aria-label="Conversation">
+          <div class="welcome" id="welcome">
+            <div class="welcome-art" aria-hidden="true">
+              <span class="sparkle sparkle-one">✦</span>
+              <span class="sparkle sparkle-two">✧</span>
+              <span class="welcome-cat">🐈</span>
+              <span class="welcome-cup">☕</span>
+            </div>
+            <p class="eyebrow">A LITTLE MORE MEOW</p>
+            <h1>Well, hello there.</h1>
+            <p class="welcome-copy">Ask me anything. I’m all ears<br class="desktop-break" /> (and a very impressive tail).</p>
+            <div class="welcome-pills" aria-label="CatGPT personality">
+              <span>Curious by nature</span><span>Expert napper</span><span>Here for you</span>
+            </div>
+          </div>
+          <div class="message-list" id="message-list" aria-live="polite"></div>
+          <div class="thinking-row" id="thinking-row" aria-live="polite" hidden>
+            <span class="thinking-avatar" aria-hidden="true">🐾</span>
+            <span class="thinking-bubble"><span></span><span></span><span></span></span>
+            <span class="thinking-label">Thinking of the purrfect reply…</span>
+          </div>
+          <div class="scroll-anchor" id="scroll-anchor"></div>
+        </section>
+
+        <footer class="composer-area">
+          <div class="suggestions" id="suggestions" aria-label="Suggested prompts">
+            <button class="suggestion" type="button">Meeeow! What should I make for dinner? 🍲</button>
+            <button class="suggestion" type="button">Tell me a purr-fect little joke! 😸</button>
+          </div>
+          <form class="composer" id="composer">
+            <div class="composer-tools">
+              <button class="tool-button upload-button" id="upload-button" type="button" aria-label="Attach a file" title="Attach a file (mock)">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg>
+              </button>
+              <input id="file-input" type="file" hidden />
+              <label class="model-picker">
+                <span class="model-picker-label">MEOW MODEL</span>
+                <select id="model-select" aria-label="Choose a cat model"></select>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m7 10 5 5 5-5" /></svg>
+              </label>
+              <span class="token-counter" id="token-counter">0 / 1,000,000 tokens</span>
+            </div>
+            <div class="composer-input-row">
+              <textarea id="message-input" rows="1" placeholder="Ask anything… (or just say meow)" aria-label="Write your message"></textarea>
+              <button class="tool-button mic-button" id="mic-button" type="button" aria-label="Dictation (mock)" title="Dictation (mock)">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="3" width="6" height="12" rx="3" /><path d="M5 11a7 7 0 0 0 14 0M12 18v3m-4 0h8" /></svg>
+              </button>
+              <button class="send-button" id="send-button" type="submit" aria-label="Send message">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 14-7-5 14-2.5-5.5L5 12Z" /><path d="m11.5 13.5 4-4" /></svg>
+              </button>
+            </div>
+          </form>
+          <p class="disclaimer">CatGPT can make mistakes. Probably because it saw a sunbeam.</p>
+        </footer>
+      </main>
+    </div>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  </body>
+</html>
