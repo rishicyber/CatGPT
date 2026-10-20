@@ -2,6 +2,7 @@ import {
   addMessage,
   addTokens,
   createChat,
+  discardInactiveEmptyChats,
   getActiveChat,
   loadState,
   renameChat,
@@ -74,6 +75,7 @@ function refresh() {
 
 function selectChat(chatId) {
   state.activeChatId = chatId;
+  discardInactiveEmptyChats(state);
   persist();
   refresh();
   closeMobileSidebar();

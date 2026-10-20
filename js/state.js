@@ -9,6 +9,12 @@ export function createInitialState() {
   return { activeChatId: null, chats: [], tokensUsed: 0 };
 }
 
+export function discardInactiveEmptyChats(state) {
+  state.chats = state.chats.filter(
+    (chat) => chat.messages.length > 0 || chat.id === state.activeChatId,
+  );
+}
+
 export function loadState() {
   const serialized = localStorage.getItem(STORAGE_KEY);
   if (!serialized) return createInitialState();
@@ -29,11 +35,13 @@ export function loadState() {
     typeof chat.title === "string" &&
     Array.isArray(chat.messages)
   );
-  return {
+  const state = {
     activeChatId: chats.some((chat) => chat.id === parsed.activeChatId) ? parsed.activeChatId : null,
     chats,
     tokensUsed: Math.min(Math.floor(parsed.tokensUsed), TOKEN_LIMIT),
   };
+  discardInactiveEmptyChats(state);
+  return state;
 }
 
 export function saveState(state) {
@@ -54,6 +62,7 @@ export function createChat(state) {
   };
   state.chats.unshift(chat);
   state.activeChatId = chat.id;
+  discardInactiveEmptyChats(state);
   return chat;
 }
 
